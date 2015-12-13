@@ -14,13 +14,17 @@ while($row = mysqli_fetch_object($result)) {
 $season = $_POST["season"]; 
 $episode = $_POST["episode"]; 
 
-echo $episode;
-echo $season;
+require("verbindung.php"); 
+function checkDownloaded($season, $episode) {
+	require("verbindung.php"); 
+	$result = mysqli_query($conn,"SELECT `ID` FROM `downloads` WHERE `Season`=$season and `Episode`=$episode LIMIT 1"); 
+	if (mysqli_fetch_array($result) == true) {
+		echo "Staffel ",$season," Folge ",$episode," vorhanden.";  
+	}	 
+	else 
+		echo "Staffel ", $season," Folge ",$episode," nicht vorhanden.";
+}
 
-require_once("verbindung.php"); 
-$result = mysqli_query($conn,"SELECT `ID` FROM `downloads` WHERE `Season`=$season and `Episode`=$episode"); 
-while($row = mysqli_fetch_object($result)) {
-	echo $row->ID;
-} 
+echo checkDownloaded($season,$episode);
 
-?>
+?> 
