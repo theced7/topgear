@@ -19,12 +19,19 @@ function checkDownloaded($season, $episode) {
 	require("verbindung.php"); 
 	$result = mysqli_query($conn,"SELECT `ID` FROM `downloads` WHERE `Season`=$season and `Episode`=$episode LIMIT 1"); 
 	if (mysqli_fetch_array($result) == true) {
-		echo "Staffel ",$season," Folge ",$episode," vorhanden.";  
+#		echo "Staffel ",$season," Folge ",$episode," vorhanden.";  
+		return true;
 	}	 
 	else 
-		echo "Staffel ", $season," Folge ",$episode," nicht vorhanden.";
+#		echo "Staffel ", $season," Folge ",$episode," nicht vorhanden.";
+		return false;
 }
 
-echo checkDownloaded($season,$episode);
+#echo checkDownloaded($season,$episode);
+if (checkDownloaded($season,$episode) == true) {
+	echo "Staffel ",$season," Folge ",$episode," vorhanden.";
+}
+else 
+	echo "Staffel ", $season," Folge ",$episode," nicht vorhanden.";
 
 ?> 
